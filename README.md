@@ -1,5 +1,5 @@
-# Rango Python SDK 
-An asynchronous Rango-SDK written in Python +3.9.
+# Rango Multi-Step SDK 
+An asynchronous Rango-Multi-SDK written in Python +3.9.
 To start the sdk, install it using the following command:
 
 `pip install rango-sdk`
