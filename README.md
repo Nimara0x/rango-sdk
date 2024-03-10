@@ -1,16 +1,15 @@
 # Rango Python SDK 
-Install the SDK using the following command:
+An asynchronous Rango-SDK written in Python +3.9.
+To start the sdk, install it using the following command:
 
 `pip install rango-sdk`
 
-### Set up `.env`:
-
-```dotenv
-TOKEN='xxxx'  # your bot token here
-RANGO_API_KEY='YourRangoApi'
-RANGO_BASE_URL='https://api.rango.exchange/'
-WEBHOOK_URL='YourServerAddress'
-DEVELOPMENT='true' # For testing
+Then just import `rango_client` and start using it:
+```angular2html
+from rango_sdk import RangoClient
+rango_client = RangoClient(api_key=<RangoAPIKey>)
 ```
-
-Then just import `rango_client` and start using it.
+For instance, if you want to get the popular tokens on Rango:
+```angular2html
+tokens = await rango_client.popular_tokens()
+```
