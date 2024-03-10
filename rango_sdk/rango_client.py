@@ -1,17 +1,16 @@
-from typing import Optional, Any
+from typing import Any
 import asyncio
 from aiogram.client.session import aiohttp
-from rango_response_entities import TransactionObject, MetaResponse, BalanceResponse, BestRouteResponse, \
+from rango_sdk.rango_response_entities import TransactionObject, MetaResponse, BalanceResponse, BestRouteResponse, \
     CreateTransactionResponse
-import config
 
 
 class RangoClient:
 
-    def __init__(self):
+    def __init__(self, api_key: str):
         super().__init__()
-        self.api_key = config.RANGO_API_KEY
-        self.base_url = config.RANGO_BASE_URL
+        self.api_key = api_key
+        self.base_url = 'https://api.rango.exchange/'
         self.__meta = None
         self._popular_tokens = None
         asyncio.run(self.post_init())
@@ -27,12 +26,12 @@ class RangoClient:
         self._popular_tokens = popular_response
         print('Meta has been initialized...')
 
-    def __get_token_data(self, blockchain: str, token: str):
+    def __get_token_data(self, blockchain: str, _token: str):
         meta: MetaResponse = self.__meta
         for token in meta.tokens:
-            if token.blockchain == blockchain.upper() and token.symbol == token:
+            if token.blockchain == blockchain.upper() and token.symbol == _token:
                 return token
-            elif token.blockchain == blockchain.upper() and token.address == token.lower():
+            elif token.blockchain == blockchain.upper() and token.address == _token.lower():
                 return token
 
     async def get_meta(self) -> MetaResponse:
