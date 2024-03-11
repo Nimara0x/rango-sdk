@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 import asyncio
 from aiogram.client.session import aiohttp
 from rango_sdk.rango_response_entities import TransactionObject, MetaResponse, BalanceResponse, BestRouteResponse, \
@@ -11,8 +11,8 @@ class RangoClient:
         super().__init__()
         self.api_key = api_key
         self.base_url = 'https://api.rango.exchange/'
-        self.__meta = None
-        self._popular_tokens = None
+        self.__meta: Optional[MetaResponse] = None
+        self._popular_tokens: Optional[MetaResponse] = None
         asyncio.run(self.post_init())
 
     async def post_init(self):
@@ -37,8 +37,8 @@ class RangoClient:
     async def get_meta(self) -> MetaResponse:
         return self.__meta
 
-    async def popular_tokens(self):
-        return self._popular_tokens['popularTokens']
+    async def popular_tokens(self) -> MetaResponse:
+        return self._popular_tokens
 
     async def __request(self, url: str, method: str, data=None, extra_params=None, list_params=None) -> Any:
         if extra_params is None:
